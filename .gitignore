@@ -1,0 +1,6 @@
+# Pycharms venv folder
+venv
+
+#Pycharm related files 
+.idea
+
