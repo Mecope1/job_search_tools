@@ -2,9 +2,9 @@
 # Date: 3-31-20
 # Purpose: Adds resume/job application files from a specified directory to a spreadsheet.
 
-# Works with Ubuntu, but unsure if it works with Windows, Mac, or other OS.
+# Works with Ubuntu, but may not with Windows, or Mac.
 
-# This File assumes that a worksheet already exists in the specified location and has the first row of the first and
+# This file assumes that a worksheet already exists in the specified location and has the first row of the first and
 # second column occupied with "Name", and "Date" respectively
 
 # For this app to function correctly, there are two statements you must change to reflect where your job application
@@ -15,22 +15,11 @@ import os
 import re
 from datetime import datetime
 
-
-def main():
-    # Runs the updating function
-    update_spreadsheet()
-    # Additional functionality could be added here as well, perhaps to backup the workbook to Dropbox or Google Drive,
-
-
-if __name__ == '__main__':
-    main()
-
-
 def update_spreadsheet():
 
     # Here is the path for the spreadsheet file that will store our job applications history
     # FILL IN THIS LINE
-    workbook_path = "../../PATH/TO/SPREADSHEET/GOES/HERE.xlsx"
+    workbook_path = "PATH/TO/WORKBOOK.xlsx"
     wb = openpyxl.load_workbook(workbook_path)
 
     # You can set the specific sheet that you want to save the data to or the last active sheet.
@@ -52,7 +41,7 @@ def update_spreadsheet():
 
     # Here is the path for the resume/job application directory.
     # FILL IN THIS LINE
-    job_apps_path = "../../PATH/TO/JOB/APPLICATIONS/DIRECTORY/GOES/HERE"
+    job_apps_path = "PATH/TO/JOB/APPLICATIONS/DIRECTORY"
 
     # Here is where the worksheet is updated.
     for app_name in os.listdir(job_apps_path):
@@ -102,3 +91,10 @@ def file_extension_remover(file_name):
         return file_name
 
 
+def main():
+    # Runs the updating function
+    update_spreadsheet()
+    # Additional functionality could be added here as well, perhaps to backup the workbook to Dropbox or Google Drive,
+
+if __name__ == '__main__':
+        main()
