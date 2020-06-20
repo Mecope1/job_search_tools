@@ -1,25 +1,30 @@
 # Author: Michael Cope
-# Date: 3-31-20
+# Date: 6-20-20
 # Purpose: Adds resume/job application files from a specified directory to a spreadsheet.
 
-# Works with Ubuntu, but may not with Windows, or Mac.
+# Works with Ubuntu and Windows, but hasn't been tested on Mac. I assume it should though.
 
 # This file assumes that a worksheet already exists in the specified location and has the first row of the first and
-# second column occupied with "Name", and "Date" respectively
+# second column occupied with "Name", and "Date" respectively. There are no real consequences if these fields aren't
+# filled in however. If the workbook doesn't exist, or if the path to it isn't correct, then the program will fail with
+# FileNotFoundError: [Errno 2] No such file or directory: ...
 
 # For this app to function correctly, there are two statements you must change to reflect where your job application
-# folder is, and where the spreadsheet file is at. These lines have a comment above them stating this.
+# folder is, and where the spreadsheet file is at. These lines have an ALLCAPS comment above them stating this.
 
 import openpyxl
 import os
 import re
 from datetime import datetime
 
+
 def update_spreadsheet():
 
     # Here is the path for the spreadsheet file that will store our job applications history
-    # FILL IN THIS LINE
-    workbook_path = "PATH/TO/WORKBOOK.xlsx"
+    # FILL IN ONE OF THESE LINES AND UNCOMMENT IT.
+    # workbook_path = "PATH/TO/WORKBOOK.xlsx"
+    # workbook_path = "C:\\Users\\YOUR_USERNAME\\Desktop_or_wherever\\SPREADSHEET.xlsx"
+
     wb = openpyxl.load_workbook(workbook_path)
 
     # You can set the specific sheet that you want to save the data to or the last active sheet.
@@ -40,8 +45,9 @@ def update_spreadsheet():
     new_index = job_app_sheet.max_row + 1
 
     # Here is the path for the resume/job application directory.
-    # FILL IN THIS LINE
-    job_apps_path = "PATH/TO/JOB/APPLICATIONS/DIRECTORY"
+    # FILL IN ONE OF THESE LINES AND UNCOMMENT IT.
+    # job_apps_path = "PATH/TO/JOB/APPLICATIONS/DIRECTORY"
+    # job_apps_path = "C:\\Users\\YOUR_USERNAME\\Desktop_or_wherever\\JOB-APPS-FOLDER"
 
     # Here is where the worksheet is updated.
     for app_name in os.listdir(job_apps_path):
@@ -72,15 +78,15 @@ def file_extension_remover(file_name):
     # This util function removes the file extension from the file name if it is present. Otherwise the name is returned.
 
     # More specific patterns if you want to parse files with multiple "." in the name
-    # pattern1 = re.compile(r'\.pdf')
-    # pattern2 = re.compile(r'\.doc')
-    # pattern3 = re.compile(r'\.docx')
-    # pattern4 = re.compile(r'\.odt')
+    # pattern = re.compile(r'\.pdf')
+    # pattern = re.compile(r'\.doc')
+    # pattern = re.compile(r'\.docx')
+    # pattern = re.compile(r'\.odt')
 
-    # Searches for any periods followed by one or more chars
-    pattern5 = re.compile(r'\..+')
+    # Searches for any periods followed by one or more chars. It essentially matches any filename extension.
+    pattern = re.compile(r'\..+')
 
-    pattern_match = pattern5.search(file_name)
+    pattern_match = pattern.search(file_name)
 
     # Checks if a match was found.
     # If so, it returns the file name up to the beginning of the match.
@@ -94,7 +100,8 @@ def file_extension_remover(file_name):
 def main():
     # Runs the updating function
     update_spreadsheet()
-    # Additional functionality could be added here as well, perhaps to backup the workbook to Dropbox or Google Drive,
+    # Additional functionality could be added here as well, perhaps to backup the workbook to Dropbox or Google Drive.
+
 
 if __name__ == '__main__':
-        main()
+    main()
